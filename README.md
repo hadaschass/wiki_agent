@@ -37,3 +37,18 @@ The `KnowledgeSource` protocol makes alternative sources or an LLM-backed
 synthesis layer possible. Retrieved text must be treated as evidence, not as
 instructions. The loop reads at most three candidates, uses request timeouts,
 and keeps failures distinct from successful observations.
+
+## Browser interface
+
+```sh
+python web_app.py
+```
+
+Open `http://127.0.0.1:8000` in a browser on the same machine. Enter a topic and
+select **Explain topic**. The page shows the explanation and expandable research
+stages, with loading and error messages. No additional packages are needed.
+
+Use `--port 8080` to select a different port. The server binds to loopback by
+ default; it is a local development interface without authentication. Wikipedia
+access is still required for actual explanations. Interface tests use a fake
+source to verify HTTP requests without external network access.
