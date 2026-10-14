@@ -52,3 +52,20 @@ Use `--port 8080` to select a different port. The server binds to loopback by
  default; it is a local development interface without authentication. Wikipedia
 access is still required for actual explanations. Interface tests use a fake
 source to verify HTTP requests without external network access.
+
+## Publish on Render
+
+This repository includes a Render Blueprint (`render.yaml`) for a free web
+service using Gunicorn. Render provides the public HTTPS endpoint. The free
+service can sleep when idle, so the first request may take longer.
+
+1. Sign in to Render and choose **New → Blueprint**.
+2. Connect `hadaschass/wiki_agent`, select `main`, and apply the Blueprint.
+3. Wait for the deployment to become live, then open the URL shown by Render
+   and submit a topic to verify the explanation and citations.
+
+No application secrets are needed. Wikipedia must be reachable from the host.
+For production-server checks locally, install `requirements.txt` in a virtual
+ environment and run `gunicorn wsgi_app:application --bind 127.0.0.1:8000
+ --workers 1 --threads 4 --timeout 120`. This is a small public demo; there is no
+user authentication or persistent user data.

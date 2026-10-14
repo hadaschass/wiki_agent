@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: wiki-topic-agent
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && python -m unittest -v
+    startCommand: gunicorn wsgi_app:application --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120 --access-logfile -
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.14
